@@ -100,6 +100,9 @@ mutate() {
           {
             grid[x][y] = 1
           }
+          else {
+            grid[x][y] = 0
+          }
         }
     }}
 
