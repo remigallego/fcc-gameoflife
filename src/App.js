@@ -47,6 +47,7 @@ render() {
           </div>
           <div id="info">Generation: {this.state.generation}</div>
           <div id="info">Alive: {this.getHowMany().alive} / Dead: {this.getHowMany().dead}</div>
+          <Charts chartArray={[{alive: this.getHowMany().alive, dead: this.getHowMany().dead}]} />
         </div>
 
       </div>
