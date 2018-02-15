@@ -1,0 +1,17 @@
+#game-grid-container {
+  display: flex;
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+  margin-top: 20px;
+  flex-flow: wrap;
+  box-sizing: content-box;
+  align-content: flex-start;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
+
+.box {
+  margin-bottom: 0;
+  padding: 0;
+  border: 1px solid black; }
