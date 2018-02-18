@@ -6,10 +6,13 @@ class Box extends Component {
   constructor(props) {
     super(props)
     this.age = 0
+    this.life = false;
   }
   componentWillUpdate() {
+    this.life = this.props.life;
     if(this.props.life)
     {
+
       if(this.age < 4)
         this.age = this.age + 1;
     }

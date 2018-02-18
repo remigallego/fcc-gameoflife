@@ -8,7 +8,7 @@ import './css/game.css'
 import './css/commands.css'
 import './css/infos.css'
 
-const width = 1200;
+const width = 1000;
 const height = width;
 
 const BOXES_ON_X = 40
