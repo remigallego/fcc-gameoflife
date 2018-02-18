@@ -1,7 +1,7 @@
 #game-grid-container {
   display: flex;
-  width: 400px;
-  height: 400px;
+  width: 1000px;
+  height: 1000px;
   margin: 0 auto;
   margin-top: 20px;
   flex-flow: wrap;
@@ -14,4 +14,30 @@
 .box {
   margin-bottom: 0;
   padding: 0;
-  border: 1px solid black; }
+  width: 25px;
+  height: 25px;
+  border: 0px dotted rgba(100,0,0,0.1); }
+
+.on {
+  background-color: #496fd1
+}
+
+#age0 {
+
+}
+
+#age1 {
+
+}
+
+#age2 {
+ background-color: #6791ff;
+}
+
+#age3 {
+ background-color: #82a5ff;
+}
+
+#age4 {
+ background-color: #b9cdff;
+}

@@ -7,31 +7,25 @@ import './App.css';
 import './css/game.css'
 import './css/commands.css'
 import './css/infos.css'
-import $ from 'jquery';
 
-const width = 400;
+const width = 1200;
 const height = width;
 
-const BOXES_ON_X = 60
-const BOXES_ON_Y = 60
-const BOX_W = width/BOXES_ON_X
-const BOX_H = height/BOXES_ON_Y
-const DEADCOLOR = "#111c32"
-const ALIVECOLOR = "#ececec"
+const BOXES_ON_X = 40
+const BOXES_ON_Y = 40
 
-const TIMER = 800
+
+const TIMER = 100
 
 
 class App extends Component {
 constructor(props) {
   super(props)
   this.state = {
-      grid: [[],[]],
-      generation: 1
+      grid: Array(this.rows).fill().map(()=> Array(this.cols).fill(0)),
+      generation: 0
   }
-
   this.handleRun = this.handleRun.bind(this)
-
   this.handleRandom = this.handleRandom.bind(this)
 }
 
@@ -46,10 +40,7 @@ render() {
             <Commands handle={this.handleRandom} name="Random"/>
           </div>
           <div id="info">Generation: {this.state.generation}</div>
-          <div id="info">Alive: {this.getHowMany().alive} / Dead: {this.getHowMany().dead}</div>
-          <Charts chartArray={[{alive: this.getHowMany().alive, dead: this.getHowMany().dead}]} />
         </div>
-
       </div>
     );
 }
@@ -62,52 +53,30 @@ tick() {
   this.mutate();
 }
 
-
-// Return how many Alive and Dead globally
-getHowMany() {
-  let grid = this.state.grid;
-  let result = 0
-  for(let x = 0; x < grid.length; x++)
-    {for(let y = 0; y < grid[x].length; y++)
-      {
-        if(grid[x][y] === 1)
-          result++
-      }
-  }
-  return {alive: result, dead: BOXES_ON_X*BOXES_ON_Y-result}
-}
-
-
   // Mutate
 mutate() {
-  let grid = this.state.grid
-  for(let x = 0; x < grid.length; x++)
-    {for(let y = 0; y < grid[x].length; y++)
-    {
-      if(grid[x][y]) // If Box Alive
-      {
-        if(this.getNeighbours(x, y, grid) === 2 || this.getNeighbours(x, y, grid) === 3)
-          {
-            grid[x][y] = 1
-          }
-        else {
-            grid[x][y] = 0
-        }
-      }
-      else           // If Box Dead
-        {
-        if(this.getNeighbours(x, y, grid) === 3)
-          {
-            grid[x][y] = 1
-          }
-          else {
-            grid[x][y] = 0
-          }
-        }
-    }}
+    let g  = this.state.grid;
+    let g2 = this.state.grid;
 
-  this.setState({grid: grid})
-  this.setState({generation: this.state.generation+1})
+    for (let i = 0; i < BOXES_ON_X; i++) {
+		  for (let j = 0; j < BOXES_ON_X; j++) {
+		    let count = 0;
+		    if (i > 0) if (g[i - 1][j]) count++;
+		    if (i > 0 && j > 0) if (g[i - 1][j - 1]) count++;
+		    if (i > 0 && j < BOXES_ON_X - 1) if (g[i - 1][j + 1]) count++;
+		    if (j < BOXES_ON_X - 1) if (g[i][j + 1]) count++;
+		    if (j > 0) if (g[i][j - 1]) count++;
+		    if (i < BOXES_ON_X - 1) if (g[i + 1][j]) count++;
+		    if (i < BOXES_ON_X - 1 && j > 0) if (g[i + 1][j - 1]) count++;
+		    if (i < BOXES_ON_X - 1 && BOXES_ON_X - 1) if (g[i + 1][j + 1]) count++;
+		    if (g[i][j] && (count < 2 || count > 3)) g2[i][j] = 0;
+		    if (!g[i][j] && count === 3) g2[i][j] = 1;
+		  }
+		}
+		this.setState({
+		  grid: g2,
+		  generation: this.state.generation + 1
+      });
 }
 
 // Redirect to Run or Pause
@@ -139,28 +108,6 @@ getButtonStatus() {
   }
 }
 
-// Get Neighbours of a Box
-getNeighbours(x, y, grid) {
-  let foundAlive = 0;
-  for(let i=-1 ; i <=1 ; i++)
-  {
-  let newx = x+i
-    for(let j=-1 ; j <=1 ; j++)
-  {
-    let newy = y+j
-    if(newx < 0 || newy < 0 || newx >= BOXES_ON_X || newy >= BOXES_ON_Y )
-      {}
-      else
-      if(newx === x && newy === y)
-        {}
-        else
-        if(grid[newx][newy] === 1)
-            foundAlive++
-    }
-  }
-  return foundAlive;
-}
-
 // Handle the Random Button
 handleRandom() {
   let xgrid = [];
@@ -169,15 +116,15 @@ handleRandom() {
   let h = BOXES_ON_Y;
   let array = []
   let temp = []
-  for(let i=0; i<w;i++)
+  for(let i=0; i < w; i++)
   {
-    array.push([])
-    temp = array[i]
-    for(let j=0;j<h;j++)
+    array.push([]);
+    temp = array[i];
+    for(let j=0 ; j < h ; j++)
     {
-      temp.push(this.random())
+      temp.push(this.random());
     }
-     array[i] = temp
+    array[i] = temp
   }
 
   this.setState({grid: array})
@@ -185,15 +132,13 @@ handleRandom() {
 }
 
 // Return 1 or 0 randomly
-random() {
-
-  if(Math.floor(Math.random() * 4) === 1)
-    return 1
-  else {
-    return 0
+  random() {
+    if(Math.floor(Math.random() * 10) === 1)
+      return 1
+    else {
+      return 0
+    }
   }
-}
 }
 
 export default App;
-export {DEADCOLOR, ALIVECOLOR, BOXES_ON_X, BOXES_ON_Y, BOX_W, BOX_H};
