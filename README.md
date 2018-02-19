@@ -4,9 +4,13 @@ A game of life with basic charts built with ReactJS and recharts.
 
 # Instruction
 
+This will build the project and install the serve package to test it through React's production environment.
 ```
-npm start
+npm run demo
 ```
 
-# Demo
-<a href="https://nameless-beach-25330.herokuapp.com">Demo it on Heroku</a>
+If you already have the serve package installed you can run these commands:
+```
+npm run build
+serve -s build
+```
