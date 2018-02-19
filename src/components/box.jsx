@@ -12,7 +12,6 @@ class Box extends Component {
     this.life = this.props.life;
     if(this.props.life)
     {
-
       if(this.age < 4)
         this.age = this.age + 1;
     }

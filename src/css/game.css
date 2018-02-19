@@ -1,7 +1,7 @@
 #game-grid-container {
   display: flex;
-  width: 1000px;
-  height: 1000px;
+  width: 600px;
+  height: 600px;
   margin: 0 auto;
   margin-top: 20px;
   flex-flow: wrap;
@@ -14,12 +14,16 @@
 .box {
   margin-bottom: 0;
   padding: 0;
-  width: 25px;
-  height: 25px;
+  width: 8px;
+  height: 8px;
   border: 0px dotted rgba(100,0,0,0.1); }
 
 .on {
   background-color: #496fd1
+}
+
+.off {
+  background-color: #ebf1ff
 }
 
 #age0 {
