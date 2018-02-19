@@ -14,3 +14,6 @@ If you already have the serve package installed you can run these commands:
 npm run build
 serve -s build
 ```
+
+# Demo
+Demo it on Netfliy: <a href="https://fcc-gameoflife-build.netlify.com/">Link</a>
